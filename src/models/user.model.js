@@ -64,7 +64,7 @@ userSchema.methods.isPasswordMatch = async function (password) {
 }
 
 userSchema.methods.generateAccessToken = function () { 
-    jwt.sign(
+    const accessToken = jwt.sign(
         {
             _id : this._id,
             username: this.username,
@@ -76,9 +76,10 @@ userSchema.methods.generateAccessToken = function () {
             expiresIn: process.env.ACCESS_TOKEN_EXPIRY || "15m"
         }
     )
+    return accessToken
 }
 userSchema.methods.generateRefreshToken = function () {
-    jwt.sign(
+    return jwt.sign(
         {
             _id: this._id,
 
